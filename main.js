@@ -25,6 +25,11 @@ function setup(){
   var canvas =  createCanvas(700,600);
   canvas.center();
   canvas.parent('canvas');
+  video = createCapture(VIDEO);
+	video.size(800,400);
+	video.hide();
+	poseNet = ml5.poseNet(video, modelLoaded);
+	poseNet.on('pose', gotPoses);
 }
 
 
@@ -39,6 +44,8 @@ function draw(){
  fill("black");
  stroke("black");
  rect(0,0,20,700);
+
+ image(0,0,1240,336);
  
    //funtion paddleInCanvas call 
    paddleInCanvas();
@@ -163,4 +170,8 @@ function paddleInCanvas(){
   if(mouseY < 0){
     mouseY =0;
   }  
+}
+
+function modelLoaded(){
+	console.log("Model Loaded");
 }
